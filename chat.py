@@ -1,16 +1,23 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 import os
+import random
 
-bot = ChatBot('Bot')
+bot = ChatBot('Luíza')
 trainer = ListTrainer(bot)
 
-for files in os.listdir(os.path.abspath('yml')):
-    data = open(os.path.abspath('yml') + "/" + files, 'r').readlines()
+for files in os.listdir(os.path.abspath('Conversations')):
+    data = open(os.path.abspath('Conversations') + "/" + files, 'r').readlines()
     trainer.train(data)
-
-
+    
+    
 while True:
-    menssagem = input("Você: ")
-    resposta = bot.get_response(menssagem)
-    print("Bot: ",resposta)
+    message = input("You: ")
+    numberOfMessages = random.randint(1,4)
+    previousMessage = ""
+    response = ""
+    for x in range(numberOfMessages):
+        while response == previousMessage:
+            response = bot.get_response(message)
+        print("Bot: ",response)
+        previousMessage = response
